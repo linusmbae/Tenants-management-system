@@ -15,7 +15,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void saveBedSitterApartment(BedsitterApartment bedsitterApartment) {
-        String save="INSERT INTO apartment (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
+        String save="INSERT INTO apartments (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
         try(Connection conn=sql2o.open()) {
             int id=(int) conn.createQuery(save)
                     .bind(bedsitterApartment)
@@ -30,7 +30,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void saveOneBedroomApartment(OneBedroomApartment oneBedroomApartment) {
-        String save="INSERT INTO apartment (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
+        String save="INSERT INTO apartments (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
         try(Connection conn=sql2o.open()) {
             int id=(int) conn.createQuery(save)
                     .bind(oneBedroomApartment)
@@ -46,7 +46,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
     @Override
     public List<BedsitterApartment> getAllWithTypeBedsitter(String type) {
         try(Connection conn=sql2o.open()) {
-            return conn.createQuery("SELECT * FROM apartment WHERE type = :type")
+            return conn.createQuery("SELECT * FROM apartments WHERE type = :type")
                     .addParameter("type",type)
                     .executeAndFetch(BedsitterApartment.class);
         }
@@ -55,7 +55,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
     @Override
     public List<OneBedroomApartment> getAllWithTypeOneBedroom(String type) {
         try(Connection conn=sql2o.open()) {
-            return conn.createQuery("SELECT * FROM apartment WHERE type = :type")
+            return conn.createQuery("SELECT * FROM apartments WHERE type = :type")
                     .addParameter("type",type)
                     .executeAndFetch(OneBedroomApartment.class);
         }
@@ -63,7 +63,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void updateBedsitter(BedsitterApartment bedsitterApartment) {
-        String update="UPDATE apartment SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
+        String update="UPDATE apartments SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(update)
                     .bind(bedsitterApartment)
@@ -76,7 +76,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void updateOneBedroom(OneBedroomApartment oneBedroomApartment) {
-        String update="UPDATE apartment SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
+        String update="UPDATE apartments SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(update)
                     .bind(oneBedroomApartment)
@@ -89,7 +89,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void deleteById(int id) {
-        String removeById="DELETE FROM apartment WHERE id=:id";
+        String removeById="DELETE FROM apartments WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeById)
                     .addParameter("id",id)
@@ -102,8 +102,8 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void deleteByApartmentType(BedsitterApartment bedsitterApartment, OneBedroomApartment oneBedroomApartment) {
-        String removeByTypeBedsitter="DELETE FROM apartment WHERE type=:type";
-        String removeByTypeOneBedroom="DELETE FROM apartment WHERE type=:type";
+        String removeByTypeBedsitter="DELETE FROM apartments WHERE type=:type";
+        String removeByTypeOneBedroom="DELETE FROM apartments WHERE type=:type";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeByTypeBedsitter)
                     .addParameter("type",bedsitterApartment.getType())
@@ -120,7 +120,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
 
     @Override
     public void clearAll() {
-        String removeAll="DELETE FROM apartment";
+        String removeAll="DELETE FROM apartments";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeAll)
                     .executeUpdate();
