@@ -25,7 +25,17 @@ public class UserTest {
         User user  = setupNewUser();
         assertEquals("Rose", user.getName());
     }
-    //helper methods
+    @Test
+    public void User_InstantiatesWithEmail_true() throws Exception {
+        User user  = setupNewUser();
+        assertEquals("rmogusu123@gmail.com", user.getEmail());
+    }
+
+    @Test
+    public void User_InstantiatesWithUserName_true() throws Exception {
+        User user  = setupNewUser();
+        assertEquals("rmogusu", user.getUserName());
+    }//helper methods
     public User setupNewUser(){
         return new User ("Rose","rmogusu123@gmail.com","rmogusu","12345") ;
     }
