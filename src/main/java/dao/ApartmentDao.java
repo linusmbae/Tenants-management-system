@@ -8,7 +8,7 @@ import java.util.List;
 public interface ApartmentDao {
 //    CREATE
     void saveBedSitterApartment(BedsitterApartment bedsitterApartment);
-    void saveOneBedroomAprtment(OneBedroomApartment oneBedroomApartment);
+    void saveOneBedroomApartment(OneBedroomApartment oneBedroomApartment);
 
 //    READ
     List<BedsitterApartment> getAllWithTypeBedsitter(String type);

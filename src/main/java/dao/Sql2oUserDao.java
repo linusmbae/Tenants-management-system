@@ -78,9 +78,9 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public void clearAll() {
-        String removeById="DELETE FROM user";
+        String removeAll="DELETE FROM user";
         try(Connection conn=sql2o.open()) {
-            conn.createQuery(removeById)
+            conn.createQuery(removeAll)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
