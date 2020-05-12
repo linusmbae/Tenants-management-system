@@ -3,12 +3,12 @@ package models;
 import java.util.Objects;
 
 public abstract class Apartment {
-    private int id;
-    private String name;
-    private String location;
-    private String type;
-    private int numberOfRooms;
-    private int numberOfFloors;
+    public int id;
+    public String name;
+    public String location;
+    public String type;
+    public int numberOfRooms;
+    public int numberOfFloors;
 
     public int getId() {
         return id;
