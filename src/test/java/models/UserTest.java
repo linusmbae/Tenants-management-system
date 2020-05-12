@@ -25,6 +25,7 @@ public class UserTest {
         User user  = setupNewUser();
         assertEquals("Rose", user.getName());
     }
+
     @Test
     public void User_InstantiatesWithEmail_true() throws Exception {
         User user  = setupNewUser();
@@ -40,6 +41,31 @@ public class UserTest {
     public void User_InstantiatesWithPassword_true() throws Exception {
         User user  = setupNewUser();
         assertEquals("12345", user.getPassword());
+    }
+    @Test
+    public void User_SetsNameCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setName("Linus");
+        assertNotEquals("Rose", user.getName());
+    }
+
+    @Test
+    public void User_SetsEmailCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setEmail("linus@gmail.com");
+        assertNotEquals("rmogusu123@gmail.com", user.getName());
+    }
+    @Test
+    public void User_SetsUserNameCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setUserName("linus") ;
+        assertNotEquals("rmogusu", user.getName());
+    }
+    @Test
+    public void User_SetsPasswordCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setPassword("54321") ;
+        assertNotEquals("12345", user.getName());
     }
     //helper methods
     public User setupNewUser(){
