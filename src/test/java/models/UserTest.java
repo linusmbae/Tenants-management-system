@@ -35,7 +35,13 @@ public class UserTest {
     public void User_InstantiatesWithUserName_true() throws Exception {
         User user  = setupNewUser();
         assertEquals("rmogusu", user.getUserName());
-    }//helper methods
+    }
+    @Test
+    public void User_InstantiatesWithPassword_true() throws Exception {
+        User user  = setupNewUser();
+        assertEquals("12345", user.getPassword());
+    }
+    //helper methods
     public User setupNewUser(){
         return new User ("Rose","rmogusu123@gmail.com","rmogusu","12345") ;
     }
