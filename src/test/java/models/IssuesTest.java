@@ -2,6 +2,7 @@ package models;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -13,5 +14,34 @@ public class IssuesTest {
 
     @After
     public void tearDown() throws Exception {
+    }
+    @Test
+    public void NewIssuesObjectGetsCorrectlyCreated_true() throws Exception {
+        Issues issues  = setupNewIssues();
+        assertEquals(true, issues  instanceof Issues  );
+    }
+    @Test
+    public void Issues_InstantiatesWithType_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals("Large", issues .getType() );
+    }
+    @Test
+    public void Issues_InstantiatesWithContent_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals("Big", issues .getContent());
+    }
+    @Test
+    public void Issues_InstantiatesWithApartmentId_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals(1, issues .getApartmentId());
+    }
+    @Test
+    public void Issues_InstantiatesWithRoomId_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals(1, issues .getRoomId());
+    }
+    //helper methods
+    public Issues  setupNewIssues(){
+        return new Issues ("Large","Big",1,1) ;
     }
 }
