@@ -55,6 +55,18 @@ public class UserTest {
         user.setEmail("linus@gmail.com");
         assertNotEquals("rmogusu123@gmail.com", user.getName());
     }
+    @Test
+    public void User_SetsUserNameCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setUserName("linus") ;
+        assertNotEquals("rmogusu", user.getName());
+    }
+    @Test
+    public void User_SetsPasswordCorrectly_true() throws Exception {
+        User user  = setupNewUser();
+        user.setPassword("54321") ;
+        assertNotEquals("12345", user.getName());
+    }
     //helper methods
     public User setupNewUser(){
         return new User ("Rose","rmogusu123@gmail.com","rmogusu","12345") ;
