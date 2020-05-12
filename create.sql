@@ -1,9 +1,9 @@
-SET MODE PostgreSQL;
+--SET MODE PostgreSQL;
 
 CREATE DATABASE tenants_manager;
 \c tenants_manager;
 
-CREATE TABLE user
+CREATE TABLE users
 (
 id serial PRIMARY KEY,
 name VARCHAR,
@@ -22,7 +22,7 @@ floor int,
 apartmentid int
 );
 
-CREATE TABLE apartment
+CREATE TABLE apartments
 (
 id serial PRIMARY KEY,
 name VARCHAR,
