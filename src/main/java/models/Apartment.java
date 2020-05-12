@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public abstract class Apartment {
     private int id;
     private String name;
@@ -56,4 +58,20 @@ public abstract class Apartment {
         this.numberOfFloors = numberOfFloors;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Apartment apartment = (Apartment) o;
+        return numberOfRooms == apartment.numberOfRooms &&
+                numberOfFloors == apartment.numberOfFloors &&
+                Objects.equals(name, apartment.name) &&
+                Objects.equals(location, apartment.location) &&
+                Objects.equals(type, apartment.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, location, type, numberOfRooms, numberOfFloors);
+    }
 }
