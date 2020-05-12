@@ -40,6 +40,30 @@ public class BedsitterApartmentTest {
         BedsitterApartment bedsitterApartment = setupNewBedroomApartment() ;
         assertEquals(7, bedsitterApartment .getNumberOfFloors());
     }
+    @Test
+    public void BedSitterApartment_SetsNameCorrectly_true() throws Exception {
+        BedsitterApartment bedsitterApartment  = setupNewBedroomApartment();
+        bedsitterApartment.setName("Linus") ;
+        assertNotEquals("Mogusu", bedsitterApartment.getName());
+    }
+    @Test
+    public void BedSitterApartment_SetsLocationCorrectly_true() throws Exception {
+        BedsitterApartment bedsitterApartment  = setupNewBedroomApartment();
+        bedsitterApartment.setLocation("Nairobi") ;
+        assertNotEquals("Kibera", bedsitterApartment.getLocation() );
+    }
+    @Test
+    public void BedSitterApartment_SetsNumberOfRoomsCorrectly_true() throws Exception {
+        BedsitterApartment bedsitterApartment  = setupNewBedroomApartment();
+        bedsitterApartment.setNumberOfRooms(6) ;
+        assertNotEquals(4, bedsitterApartment.getNumberOfRooms());
+    }
+    @Test
+    public void BedSitterApartment_SetsNumberOfFloorsCorrectly_true() throws Exception {
+        BedsitterApartment bedsitterApartment  = setupNewBedroomApartment();
+        bedsitterApartment.setNumberOfFloors(8) ;
+        assertNotEquals(7, bedsitterApartment.getNumberOfFloors());
+    }
     //helper methods
     public BedsitterApartment  setupNewBedroomApartment(){
         return new BedsitterApartment ("Mogusu","Kibera",4,7) ;
