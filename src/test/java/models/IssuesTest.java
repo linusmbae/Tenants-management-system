@@ -21,9 +21,24 @@ public class IssuesTest {
         assertEquals(true, issues  instanceof Issues  );
     }
     @Test
-    public void User_InstantiatesWithName_true() throws Exception {
+    public void Issues_InstantiatesWithType_true() throws Exception {
         Issues issues = setupNewIssues() ;
         assertEquals("Large", issues .getType() );
+    }
+    @Test
+    public void Issues_InstantiatesWithContent_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals("Big", issues .getContent());
+    }
+    @Test
+    public void Issues_InstantiatesWithApartmentId_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals(1, issues .getApartmentId());
+    }
+    @Test
+    public void Issues_InstantiatesWithRoomId_true() throws Exception {
+        Issues issues = setupNewIssues() ;
+        assertEquals(1, issues .getRoomId());
     }
     //helper methods
     public Issues  setupNewIssues(){
