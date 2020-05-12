@@ -40,7 +40,26 @@ public class IssuesTest {
         Issues issues = setupNewIssues() ;
         assertEquals(1, issues .getRoomId());
     }
-    //helper methods
+    @Test
+    public void Issues_SetsTypesCorrectly_true() throws Exception {
+        Issues issues  = setupNewIssues();
+        issues.setType("Big") ;
+        assertNotEquals("large", issues .getType());
+    }
+    @Test
+    public void Issues_SetsContentCorrectly_true() throws Exception {
+        Issues issues  = setupNewIssues();
+        issues.setContent("Small") ;
+        assertNotEquals("Big", issues .getContent());
+    }
+
+//    @Test
+//    public void Issues_SetsCorrectly_true() throws Exception {
+//        Issues issues = setupNewIssues();
+//        issues.setType("Linus");
+//        assertNotEquals("large", issues.getType());
+//    }
+        //helper methods
     public Issues  setupNewIssues(){
         return new Issues ("Large","Big",1,1) ;
     }
