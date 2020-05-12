@@ -2,14 +2,14 @@ package models;
 
 import java.util.Objects;
 
-public class user {
+public class User {
     private int id;
     private String name;
     private String email;
     private String userName;
     private String password;
 
-    public user(String name, String email, String userName, String password) {
+    public User(String name, String email, String userName, String password) {
         this.name = name;
         this.email = email;
         this.userName = userName;
@@ -60,7 +60,7 @@ public class user {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        user user = (user) o;
+        User user = (User) o;
         return Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(userName, user.userName) &&
