@@ -41,6 +41,30 @@ public class TenantsTest {
         Tenants tenants  = setupNewTenant();
         assertEquals(1, tenants .getApartmentId() );
     }
+    @Test
+    public void Tenants_SetsNameCorrectly_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        tenants .setName("Linus") ;
+        assertNotEquals("Rose", tenants .getName());
+    }
+    @Test
+    public void Tenants_SetsPhoneCorrectly_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        tenants .setPhone("0754321") ;
+        assertNotEquals("0712345", tenants .getPhone());
+    }
+    @Test
+    public void Tenants_SetsRoomNumberCorrectly_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        tenants .setRoomNumber(5) ;
+        assertNotEquals(10, tenants.getRoomNumber());
+    }
+    @Test
+    public void Tenants_SetsFloorCorrectly_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        tenants .setFloor(5) ;
+        assertNotEquals(3, tenants .getFloor());
+    }
     //helper methods
     public Tenants setupNewTenant(){
         return new Tenants ("Rose","0712345",10,3,1) ;
