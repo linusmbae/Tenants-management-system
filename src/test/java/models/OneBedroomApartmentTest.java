@@ -42,7 +42,7 @@ public class OneBedroomApartmentTest {
         assertEquals(8, oneBedroomApartment.getNumberOfFloors());
     }
     @Test
-    public void OneBedroomApartments_SetsNumberOfRoomsCorrectly_true() throws Exception {
+    public void OneBedroomApartments_SetsNameCorrectly_true() throws Exception {
         OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
         oneBedroomApartment .setName("Mary") ;
         assertNotEquals("Rose", oneBedroomApartment.getName());
@@ -52,6 +52,18 @@ public class OneBedroomApartmentTest {
         OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
         oneBedroomApartment .setLocation("Kisumu") ;
         assertNotEquals("Gong", oneBedroomApartment.getLocation());
+    }
+    @Test
+    public void OneBedroomApartments_SetsNumberOfRoomsCorrectly_true() throws Exception {
+        OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
+        oneBedroomApartment .setNumberOfRooms(5) ;
+        assertNotEquals(2, oneBedroomApartment.getNumberOfRooms());
+    }
+    @Test
+    public void OneBedroomApartments_SetsNumberOfFloorsCorrectly_true() throws Exception {
+        OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
+        oneBedroomApartment .setNumberOfFloors(6) ;
+        assertNotEquals(8, oneBedroomApartment.getNumberOfFloors());
     }
     //helper methods
     public OneBedroomApartment  setupNewOneBedroomApartment(){
