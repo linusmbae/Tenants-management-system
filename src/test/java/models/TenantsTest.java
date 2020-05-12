@@ -65,6 +65,12 @@ public class TenantsTest {
         tenants .setFloor(5) ;
         assertNotEquals(3, tenants .getFloor());
     }
+    @Test
+    public void Tenants_SetsApartmentIdCorrectly_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        tenants .setApartmentId(3) ;
+        assertNotEquals(1, tenants .getApartmentId() );
+    }
     //helper methods
     public Tenants setupNewTenant(){
         return new Tenants ("Rose","0712345",10,3,1) ;
