@@ -25,6 +25,7 @@ public class UserTest {
         User user  = setupNewUser();
         assertEquals("Rose", user.getName());
     }
+
     @Test
     public void User_InstantiatesWithEmail_true() throws Exception {
         User user  = setupNewUser();
