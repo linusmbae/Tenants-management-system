@@ -40,6 +40,12 @@ public class BedsitterApartmentTest {
         BedsitterApartment bedsitterApartment = setupNewBedroomApartment() ;
         assertEquals(7, bedsitterApartment .getNumberOfFloors());
     }
+    @Test
+    public void BedSitterApartment_SetsNameCorrectly_true() throws Exception {
+        BedsitterApartment bedsitterApartment  = setupNewBedroomApartment();
+        bedsitterApartment.setName("Linus") ;
+        assertNotEquals("Mogusu", bedsitterApartment.getName());
+    }
     //helper methods
     public BedsitterApartment  setupNewBedroomApartment(){
         return new BedsitterApartment ("Mogusu","Kibera",4,7) ;
