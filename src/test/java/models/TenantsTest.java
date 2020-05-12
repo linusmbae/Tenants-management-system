@@ -35,10 +35,11 @@ public class TenantsTest {
         Tenants tenants  = setupNewTenant();
         assertEquals(10, tenants .getRoomNumber());
     }
+
     @Test
-    public void Tenants_InstantiatesWithFloor_true() throws Exception {
+    public void Tenants_InstantiatesWithApartmentId_true() throws Exception {
         Tenants tenants  = setupNewTenant();
-        assertEquals(3, tenants .getFloor() );
+        assertEquals(1, tenants .getApartmentId() );
     }
     //helper methods
     public Tenants setupNewTenant(){
