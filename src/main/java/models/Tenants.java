@@ -8,12 +8,14 @@ public class Tenants {
     private String phone;
     private int roomNumber;
     private int floor;
+    private int apartmentId;
 
-    public Tenants(String name, String phone, int roomNumber, int floor) {
+    public Tenants(String name, String phone, int roomNumber, int floor, int apartmentId) {
         this.name = name;
         this.phone = phone;
         this.roomNumber = roomNumber;
         this.floor = floor;
+        this.apartmentId=apartmentId;
     }
 
     public int getId() {
@@ -56,6 +58,14 @@ public class Tenants {
         this.floor = floor;
     }
 
+    public int getApartmentId() {
+        return apartmentId;
+    }
+
+    public void setApartmentId(int apartmentId) {
+        this.apartmentId = apartmentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,12 +73,13 @@ public class Tenants {
         Tenants tenants = (Tenants) o;
         return roomNumber == tenants.roomNumber &&
                 floor == tenants.floor &&
+                apartmentId==tenants.apartmentId &&
                 Objects.equals(name, tenants.name) &&
                 Objects.equals(phone, tenants.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, roomNumber, floor);
+        return Objects.hash(name, phone, roomNumber, floor, apartmentId);
     }
 }
