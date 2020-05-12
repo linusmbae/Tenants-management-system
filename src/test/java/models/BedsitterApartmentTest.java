@@ -25,7 +25,16 @@ public class BedsitterApartmentTest {
         BedsitterApartment bedsitterApartment = setupNewBedroomApartment() ;
         assertEquals("Mogusu", bedsitterApartment .getName());
     }
-
+    @Test
+    public void BedsitterApartment_InstantiatesWithLocation_true() throws Exception {
+        BedsitterApartment bedsitterApartment = setupNewBedroomApartment() ;
+        assertEquals("Kibera", bedsitterApartment .getLocation());
+    }
+    @Test
+    public void BedsitterApartment_InstantiatesWithNumberOfRooms_true() throws Exception {
+        BedsitterApartment bedsitterApartment = setupNewBedroomApartment() ;
+        assertEquals(4, bedsitterApartment .getNumberOfRooms());
+    }
     //helper methods
     public BedsitterApartment  setupNewBedroomApartment(){
         return new BedsitterApartment ("Mogusu","Kibera",4,7) ;
