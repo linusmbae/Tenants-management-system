@@ -21,9 +21,24 @@ public class TenantsTest {
         assertEquals(true, tenants  instanceof Tenants  );
     }
     @Test
-    public void User_InstantiatesWithName_true() throws Exception {
+    public void Tenants_InstantiatesWithName_true() throws Exception {
         Tenants tenants  = setupNewTenant();
         assertEquals("Rose", tenants .getName());
+    }
+    @Test
+    public void Tenants_InstantiatesWithPhoneNumber_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        assertEquals("0712345", tenants .getPhone());
+    }
+    @Test
+    public void Tenants_InstantiatesWithRoomNumber_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        assertEquals(10, tenants .getRoomNumber());
+    }
+    @Test
+    public void Tenants_InstantiatesWithFloor_true() throws Exception {
+        Tenants tenants  = setupNewTenant();
+        assertEquals(3, tenants .getFloor() );
     }
     //helper methods
     public Tenants setupNewTenant(){
