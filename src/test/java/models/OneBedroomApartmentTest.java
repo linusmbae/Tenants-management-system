@@ -36,7 +36,11 @@ public class OneBedroomApartmentTest {
         OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
         assertEquals(2, oneBedroomApartment.getNumberOfRooms());
     }
-
+    @Test
+    public void OneBedroomApartments_InstantiatesWithNumberOfFloors_true() throws Exception {
+        OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
+        assertEquals(8, oneBedroomApartment.getNumberOfFloors());
+    }
     //helper methods
     public OneBedroomApartment  setupNewOneBedroomApartment(){
         return new OneBedroomApartment ("Rose","Gong",2,8) ;
