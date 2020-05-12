@@ -41,6 +41,18 @@ public class OneBedroomApartmentTest {
         OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
         assertEquals(8, oneBedroomApartment.getNumberOfFloors());
     }
+    @Test
+    public void OneBedroomApartments_SetsNumberOfRoomsCorrectly_true() throws Exception {
+        OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
+        oneBedroomApartment .setName("Mary") ;
+        assertNotEquals("Rose", oneBedroomApartment.getName());
+    }
+    @Test
+    public void OneBedroomApartments_SetsLocationCorrectly_true() throws Exception {
+        OneBedroomApartment oneBedroomApartment  = setupNewOneBedroomApartment();
+        oneBedroomApartment .setLocation("Kisumu") ;
+        assertNotEquals("Gong", oneBedroomApartment.getLocation());
+    }
     //helper methods
     public OneBedroomApartment  setupNewOneBedroomApartment(){
         return new OneBedroomApartment ("Rose","Gong",2,8) ;
