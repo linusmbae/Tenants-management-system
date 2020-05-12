@@ -78,7 +78,7 @@ public class Sql2oTenantsDao implements TenantsDao{
 
     @Override
     public void clearAll() {
-        String removeAll="DELETE FROM apartments";
+        String removeAll="DELETE FROM tenants";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeAll)
                     .executeUpdate();
@@ -90,7 +90,7 @@ public class Sql2oTenantsDao implements TenantsDao{
 
     @Override
     public void removeById(Tenants tenants) {
-        String removeById="DELETE FROM apartments WHERE id=:id";
+        String removeById="DELETE FROM tenants WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeById)
                     .addParameter("id",tenants.getId())
@@ -103,7 +103,7 @@ public class Sql2oTenantsDao implements TenantsDao{
 
     @Override
     public void removeByApartmentId(Apartment apartment) {
-        String removeByApartmentId="DELETE FROM apartments WHERE apartmentid=:apartmentId";
+        String removeByApartmentId="DELETE FROM tenants WHERE apartmentid=:apartmentId";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeByApartmentId)
                     .addParameter("apartmentId",apartment.getId())
