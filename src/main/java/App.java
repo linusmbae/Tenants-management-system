@@ -1,3 +1,4 @@
+import models.Issues;
 import models.Tenants;
 import models.User;
 import spark.ModelAndView;
@@ -67,6 +68,17 @@ public class App {
             int floor = Integer.parseInt(request.queryParams("floor"));
             String apartmentId =  request.queryParams("apartmentId");
             Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        post("/issues", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String type = request.queryParams("type");
+            String content = request.queryParams("content");
+            int  apartmentId = Integer.parseInt(request.queryParams("apartmentId "));
+            int roomId = Integer.parseInt(request.queryParams("roomId"));
+            Issues issues = new Issues(type,content,apartmentId,roomId);
             //user.save();
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
