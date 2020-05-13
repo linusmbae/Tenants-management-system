@@ -121,5 +121,29 @@ public class App {
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
 
+        post("/OneBedroomApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            Apartment apartment = new Apartment() {
+            };
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/OneBedroomApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            Apartment apartment = new Apartment() {
+            };
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
