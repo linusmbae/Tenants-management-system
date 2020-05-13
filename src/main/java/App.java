@@ -83,5 +83,16 @@ public class App {
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
 
+        get("/issues", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String type = request.queryParams("type");
+            String content = request.queryParams("content");
+            int  apartmentId = Integer.parseInt(request.queryParams("apartmentId "));
+            int roomId = Integer.parseInt(request.queryParams("roomId"));
+            Issues issues = new Issues(type,content,apartmentId,roomId);
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
