@@ -1,3 +1,4 @@
+import models.Tenants;
 import models.User;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -33,7 +34,29 @@ public class App {
             User user = new User(name,email,username,password);
             //user.save();
             return new ModelAndView(model, "");
-
         }, new HandlebarsTemplateEngine());
+
+        get("/users", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String email = request.queryParams("email");
+            String username = request.queryParams("username");
+            String password = request.queryParams("password");
+            User user = new User(name,email,username,password);
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        post("/Tenants", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String phone = request.queryParams("phone");
+            int roomnumber = Integer.parseInt(request.queryParams("roomnumber"));
+            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
+            Tenants tenants = new Tenants(name,phone,roomnumber,apartmentId,);
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
