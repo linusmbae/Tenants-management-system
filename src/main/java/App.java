@@ -1,3 +1,4 @@
+import models.Apartment;
 import models.Issues;
 import models.Tenants;
 import models.User;
@@ -90,6 +91,32 @@ public class App {
             int  apartmentId = Integer.parseInt(request.queryParams("apartmentId "));
             int roomId = Integer.parseInt(request.queryParams("roomId"));
             Issues issues = new Issues(type,content,apartmentId,roomId);
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        post("/apartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            String type = request.queryParams("type");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            Apartment apartment = new Apartment() {
+            };
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/apartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            String type = request.queryParams("type");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            Apartment apartment = new Apartment() {
+            };
             //user.save();
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
