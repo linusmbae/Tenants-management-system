@@ -51,9 +51,10 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String phone = request.queryParams("phone");
-            int roomnumber = Integer.parseInt(request.queryParams("roomnumber"));
-            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
-            Tenants tenants = new Tenants(name,phone,roomnumber,apartmentId,);
+            int roomNumber = Integer.parseInt(request.queryParams("roomNumber"));
+            int floor = Integer.parseInt(request.queryParams("floor"));
+            String apartmentId =  request.queryParams("apartmentId");
+            Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
             //user.save();
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
@@ -62,9 +63,10 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String phone = request.queryParams("phone");
-            int roomnumber = Integer.parseInt(request.queryParams("roomnumber"));
-            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
-            Tenants tenants = new Tenants(name,phone,roomnumber,apartmentId,);
+            int roomNumber = Integer.parseInt(request.queryParams("roomNumber"));
+            int floor = Integer.parseInt(request.queryParams("floor"));
+            String apartmentId =  request.queryParams("apartmentId");
+            Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
             //user.save();
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
