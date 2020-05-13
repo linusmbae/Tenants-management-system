@@ -10,7 +10,7 @@ public class Tenants {
     private int floor;
     private int apartmentId;
 
-    public Tenants(String name, String phone, int roomNumber, int floor, int apartmentId) {
+    public Tenants(String name, String phone, int roomNumber, int floor, String apartmentId) {
         this.name = name;
         this.phone = phone;
         this.roomNumber = roomNumber;
@@ -58,7 +58,7 @@ public class Tenants {
         this.floor = floor;
     }
 
-    public int getApartmentId() {
+    public String getApartmentId() {
         return apartmentId;
     }
 

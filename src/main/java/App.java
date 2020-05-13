@@ -1,7 +1,4 @@
-import models.Apartment;
-import models.Issues;
-import models.Tenants;
-import models.User;
+import models.*;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -127,7 +124,7 @@ public class App {
             String location = request.queryParams("location");
             int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
             int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
-            Apartment apartment = new Apartment() {
+            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors) {
             };
             //user.save();
             return new ModelAndView(model, "");
@@ -139,7 +136,31 @@ public class App {
             String location = request.queryParams("location");
             int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
             int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
-            Apartment apartment = new Apartment() {
+            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors) {
+            };
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        post("/BedsitterApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            BedsitterApartment bedsitterApartment = new BedsitterApartment(name,location,numberOfRooms,numberOfFloors) {
+            };
+            //user.save();
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/BedsitterApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int  numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            BedsitterApartment bedsitterApartment = new BedsitterApartment(name,location,numberOfRooms,numberOfFloors) {
             };
             //user.save();
             return new ModelAndView(model, "");
