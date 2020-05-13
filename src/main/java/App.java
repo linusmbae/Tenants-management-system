@@ -44,6 +44,7 @@ public class App {
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // Users
         post("/users", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
@@ -71,7 +72,7 @@ public class App {
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
-
+        //Tenants
         post("/Tenants", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
@@ -96,6 +97,35 @@ public class App {
             Map<String,Object>model=new HashMap<String, Object>();
             int id = Integer.parseInt(request.params("id"));
             Tenants found=tenantsDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
+
+
+        //one bed room apartment
+        post("/OneBedroomApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors);
+            oneBedroomApartmentDao.save(oneBedroomApartment);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/OneBedroomApartment", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<OneBedroomApartment> oneBedroomApartment = oneBedroomApartmentDao.getAll();
+            model.put("oneBedroomApartment",oneBedroomApartment);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/tenants/:id",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            OneBedroomApartment found=oneBedroomApartmentDao.findById(id);
             model.put("found",found);
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
