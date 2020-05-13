@@ -72,8 +72,33 @@ public class App {
         },new HandlebarsTemplateEngine());
 
 
+        post("/Tenants", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String phone = request.queryParams("phone");
+            int roomNumber = Integer.parseInt(request.queryParams("roomNumber"));
+            int floor = Integer.parseInt(request.queryParams("floor"));
+            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
+            Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
+            tenantsDao.save(tenants);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
 
+        get("/Tenants", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tenants> tenants = tenantsDao.getAll();
+            model.put("tenants",tenants);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
 
+        get("/tenants/:id",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            Tenants found=tenantsDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
 
     }
 }
