@@ -191,6 +191,108 @@ public class App {
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
+        //update
+
+        post("/OneBedroomApartment/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors);
+            apartmentDao.saveOneBedroomApartment(oneBedroomApartment);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+
+       /* get("/OneBedroomApartment/:id/update",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            OneBedroomApartment found=apartmentDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
+
+        */
+
+        //update bedsitter
+        post("/BedsitterApartment/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String location = request.queryParams("location");
+            int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
+            int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
+            BedsitterApartment bedsitterApartment= new BedsitterApartment(name,location,numberOfRooms,numberOfFloors);
+            apartmentDao.saveBedSitterApartment(bedsitterApartment);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/BedsitterApartment/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String type = request.queryParams("type");
+            List<BedsitterApartment> bedsitterApartments= apartmentDao.getAllWithTypeBedsitter(type);
+            model.put("bedsitterApartment",bedsitterApartments);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+
+        // User update
+        post("/users", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String email = request.queryParams("email");
+            String username = request.queryParams("username");
+            String password = request.queryParams("password");
+            User user = new User(name,email,username,password);
+            userDao.save(user);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/users/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<User> user = userDao.getAll();
+            model.put("user",user);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/users/:id/update",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            User found=userDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
+
+        //Tenants
+        post("/Tenants/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            String phone = request.queryParams("phone");
+            int roomNumber = Integer.parseInt(request.queryParams("roomNumber"));
+            int floor = Integer.parseInt(request.queryParams("floor"));
+            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
+            Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
+            tenantsDao.saveTenant(tenants);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/Tenants/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tenants> tenants = tenantsDao.getAll();
+            model.put("tenants",tenants);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/tenants/:id/update",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            Tenants found=tenantsDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
 
     }
 }
