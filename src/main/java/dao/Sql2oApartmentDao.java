@@ -2,6 +2,7 @@ package dao;
 
 import models.BedsitterApartment;
 import models.OneBedroomApartment;
+import models.Tenants;
 import org.sql2o.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
     public void saveBedSitterApartment(BedsitterApartment bedsitterApartment) {
         String save="INSERT INTO apartments (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
         try(Connection conn=sql2o.open()) {
-            int id=(int) conn.createQuery(save)
+            int id=(int) conn.createQuery(save,true)
                     .bind(bedsitterApartment)
                     .executeUpdate()
                     .getKey();
@@ -32,7 +33,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
     public void saveOneBedroomApartment(OneBedroomApartment oneBedroomApartment) {
         String save="INSERT INTO apartments (name, location, type, numberofrooms, numberoffloors)VALUES(:name, :location, :type, :numberOfRooms, :numberOfFloors)";
         try(Connection conn=sql2o.open()) {
-            int id=(int) conn.createQuery(save)
+            int id=(int) conn.createQuery(save,true)
                     .bind(oneBedroomApartment)
                     .executeUpdate()
                     .getKey();

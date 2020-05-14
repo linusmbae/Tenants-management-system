@@ -1,6 +1,6 @@
 package dao;
 
-import models.Apartment;
+
 import models.Tenants;
 import org.sql2o.*;
 
@@ -32,7 +32,7 @@ public class Sql2oTenantsDao implements TenantsDao{
     @Override
     public List<Tenants> getAll() {
         try(Connection conn = sql2o.open()) {
-            return conn.createQuery("SELECT * FROM tenants")
+            return conn.createQuery("SELECT * FROM tenants ORDER BY name ASC;")
                     .executeAndFetch(Tenants.class);
         }
     }
@@ -65,8 +65,6 @@ public class Sql2oTenantsDao implements TenantsDao{
         }
     }
 
-
-
     @Override
     public void clearAll() {
         String removeAll="DELETE FROM tenants";
@@ -81,14 +79,15 @@ public class Sql2oTenantsDao implements TenantsDao{
 
     @Override
     public void deleteById(int id) {
-        String removeById="DELETE FROM tenants WHERE id=:id";
-        try(Connection conn=sql2o.open()) {
-            conn.createQuery(removeById)
-                    .addParameter("id",id)
+        String sql = "DELETE from tenants WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
                     .executeUpdate();
-        }catch (Sql2oException ex)
-        {
+        } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }
+
 }
+
