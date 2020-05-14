@@ -7,18 +7,17 @@ import java.util.List;
 
 public interface IssuesDao {
 //    CREATE
-    void saveIssue(Issues issues, Apartment apartment);
+    void saveIssue(Issues issues);
 
 //    READ
     List<Issues> getAll();
-    Issues getById(int id);
-    List<Issues> getByApartmentId(Apartment apartment);
+    Issues findById(int id);
+    List<Issues> getByApartment(int apartmentId);
 
 //    UPDATE
-    void update(Issues issues,Apartment apartment);
+    void update(int id, String type, String content, int apartmentid, int roomid);
 
 //    DESTROY
     void clearAll();
-    void removeById(Issues issues);
-    void removeByApartmentId(Apartment apartment);
+    void deleteById(int id);
 }

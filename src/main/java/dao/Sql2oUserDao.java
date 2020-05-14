@@ -47,21 +47,22 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public void update(User user) {
+    public void update(int id,String name, String email, String userName, String password) {
         String update="UPDATE users SET (name, email, username, password) = (:name, :email, :userName, :password) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(update)
-                    .addParameter("name",user.getName())
-                    .addParameter("email",user.getEmail())
-                    .addParameter("userName",user.getUserName())
-                    .addParameter("password",user.getPassword())
-                    .addParameter("id",user.getId())
+                    .addParameter("name",name)
+                    .addParameter("email",email)
+                    .addParameter("userName",userName)
+                    .addParameter("password",password)
+                    .addParameter("id",id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
             System.out.println(ex);
         }
     }
+
 
     @Override
     public void deleteById(int id) {
