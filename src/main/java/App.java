@@ -294,5 +294,33 @@ public class App {
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
+
+        // issues update
+        post("/Issues/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String type = request.queryParams("type");
+            String content = request.queryParams("content");
+            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
+            int roomId = Integer.parseInt(request.queryParams("roomId"));
+            Issues issues = new Issues(type,content,apartmentId,roomId);
+            issuesDao.saveIssue(issues);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/Issues/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Issues> issues = issuesDao.getAll();
+            model.put("issues",issues);
+            return new ModelAndView(model, "");
+        }, new HandlebarsTemplateEngine());
+
+        get("/Issues/:id/update",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            Issues found=issuesDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
     }
 }
