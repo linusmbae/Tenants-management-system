@@ -18,7 +18,7 @@ public class BedsitterApartmentTest {
     @Test
     public void NewBedSitterObjectGetsCorrectlyCreated_true() throws Exception {
         BedsitterApartment bedsitterApartment  = setupNewBedroomApartment() ;
-        assertEquals(true, bedsitterApartment   instanceof BedsitterApartment    );
+        assertEquals(true, bedsitterApartment   instanceof BedsitterApartment);
     }
     @Test
     public void BedsitterApartment_InstantiatesWithName_true() throws Exception {
