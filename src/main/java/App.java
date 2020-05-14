@@ -45,7 +45,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         // Users
-        post("/users", (request, response) -> {
+        post("/users/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String email = request.queryParams("email");
@@ -122,16 +122,23 @@ public class App {
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
 
-        /*get("/OneBedroomApartment:id",(request, response) ->
+        get("/OneBedroomApartment/:id",(request, response) ->
         {
             Map<String,Object>model=new HashMap<String, Object>();
             int id = Integer.parseInt(request.params("id"));
-            OneBedroomApartment found=apartmentDao.findById(id);
+            OneBedroomApartment found=apartmentDao.findOneBedroomById(id);
             model.put("found",found);
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
-         */
+        get("/BedsitterApartment/:id",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id = Integer.parseInt(request.params("id"));
+            BedsitterApartment found=apartmentDao.findBedsitterById(id);
+            model.put("found",found);
+            return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
 
         //issues
 
@@ -197,41 +204,43 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String location = request.queryParams("location");
+            String type=request.queryParams("type");
             int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
             int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
-            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors);
-            apartmentDao.saveOneBedroomApartment(oneBedroomApartment);
+            int idToUpdate = Integer.parseInt(request.queryParams("id"));
+                    apartmentDao.updateOneBedroom(name,location,type,numberOfRooms,numberOfFloors,idToUpdate);
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
 
 
-       /* get("/OneBedroomApartment/:id/update",(request, response) ->
+      get("/OneBedroomApartment/:id/update",(request, response) ->
         {
             Map<String,Object>model=new HashMap<String, Object>();
             int id = Integer.parseInt(request.params("id"));
-            OneBedroomApartment found=apartmentDao.findById(id);
+            OneBedroomApartment found=apartmentDao.findOneBedroomById(id);
             model.put("found",found);
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
-        */
+
 
         //update bedsitter
         post("/BedsitterApartment/:id/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String location = request.queryParams("location");
+            String type=request.queryParams("type");
             int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
             int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
-            BedsitterApartment bedsitterApartment= new BedsitterApartment(name,location,numberOfRooms,numberOfFloors);
-            apartmentDao.saveBedSitterApartment(bedsitterApartment);
+            int id=Integer.parseInt(request.params("id"));
+            apartmentDao.updateBedsitter(name,location,type,numberOfRooms,numberOfFloors,id);
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
 
         get("/BedsitterApartment/:id/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String type = request.queryParams("type");
-            List<BedsitterApartment> bedsitterApartments= apartmentDao.getAllWithTypeBedsitter(type);
+            int id=Integer.parseInt(request.params("id"));
+            BedsitterApartment bedsitterApartments=apartmentDao.findBedsitterById(id);
             model.put("bedsitterApartment",bedsitterApartments);
             return new ModelAndView(model, "");
         }, new HandlebarsTemplateEngine());
@@ -321,6 +330,68 @@ public class App {
             Issues found=issuesDao.findById(id);
             model.put("found",found);
             return new ModelAndView(model,"");
+        },new HandlebarsTemplateEngine());
+
+        post("/user/:id/delete",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id =Integer.parseInt(request.params("id"));
+            userDao.deleteById(id);
+            response.redirect("/users");
+            return null;
+        },new HandlebarsTemplateEngine());
+        post("/tenants/:id/delete",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id =Integer.parseInt(request.params("id"));
+            tenantsDao.deleteById(id);
+            response.redirect("/tenants");
+            return null;
+        },new HandlebarsTemplateEngine());
+
+        post("/issues/:id/delete",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            int id =Integer.parseInt(request.params("id"));
+            issuesDao.deleteById(id);
+            response.redirect("/issues");
+            return null;
+        },new HandlebarsTemplateEngine());
+
+        post("/bedsitter/:id/delete",(request, response) ->
+        {
+            Map<String ,Object>model=new HashMap<String,Object>();
+            int id =Integer.parseInt(request.params("id"));
+            apartmentDao.deleteByBedsitterId(id);
+            response.redirect("");
+            return null;
+        },new HandlebarsTemplateEngine());
+
+        post("/onebedroom/:id/delete",(request, response) ->
+        {
+            Map<String ,Object>model=new HashMap<String,Object>();
+            int id =Integer.parseInt(request.params("id"));
+            apartmentDao.deleteByOneBedroomId(id);
+            response.redirect("");
+            return null;
+        },new HandlebarsTemplateEngine());
+
+        post("/apartments/bedsitter/clear",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            String type=request.queryParams("type");
+            apartmentDao.deleteBedsitter(type);
+            response.redirect("/");
+            return null;
+        },new HandlebarsTemplateEngine());
+
+        post("/apartments/oneBedroom/clear",(request, response) ->
+        {
+            Map<String,Object>model=new HashMap<String, Object>();
+            String type=request.queryParams("type");
+            apartmentDao.deleteOneBedroom(type);
+            response.redirect("/");
+            return null;
         },new HandlebarsTemplateEngine());
     }
 }

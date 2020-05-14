@@ -62,11 +62,35 @@ public class Sql2oApartmentDao implements ApartmentDao {
     }
 
     @Override
-    public void updateBedsitter(BedsitterApartment bedsitterApartment) {
+    public BedsitterApartment findBedsitterById(int id) {
+        try(Connection conn=sql2o.open())
+        {
+            return conn.createQuery("SELECT *FROM apartments WHERE id =:id")
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(BedsitterApartment.class);
+        }
+    }
+
+    @Override
+    public OneBedroomApartment findOneBedroomById(int id) {
+        try(Connection conn=sql2o.open())
+        {
+            return conn.createQuery("SELECT *FROM apartments WHERE id =:id")
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(OneBedroomApartment.class);
+        }
+    }
+
+    @Override
+    public void updateBedsitter(String name, String  location,String type, int numberOfRooms, int numberOfFloors,int id) {
         String update="UPDATE apartments SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
-            conn.createQuery(update)
-                    .bind(bedsitterApartment)
+            conn.createQuery(update).addParameter("name",name)
+                    .addParameter("location", location)
+                    .addParameter("type",type)
+                    .addParameter("numberOfRooms", numberOfRooms)
+                    .addParameter("numberOfFloors",numberOfFloors)
+                    .addParameter("id",id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
@@ -75,11 +99,16 @@ public class Sql2oApartmentDao implements ApartmentDao {
     }
 
     @Override
-    public void updateOneBedroom(OneBedroomApartment oneBedroomApartment) {
+    public void updateOneBedroom(String name, String  location,String type, int numberOfRooms, int numberOfFloors,int id) {
         String update="UPDATE apartments SET (name, location, type, numberofrooms, numberoffloors)=(:name, :location, :type, :numberOfRooms, :numberOfFloors) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(update)
-                    .bind(oneBedroomApartment)
+                    .addParameter("name",name)
+                    .addParameter("location", location)
+                    .addParameter("type",type)
+                    .addParameter("numberOfRooms", numberOfRooms)
+                    .addParameter("numberOfFloors",numberOfFloors)
+                    .addParameter("id",id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
@@ -88,7 +117,7 @@ public class Sql2oApartmentDao implements ApartmentDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteByBedsitterId(int id) {
         String removeById="DELETE FROM apartments WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeById)
@@ -101,22 +130,44 @@ public class Sql2oApartmentDao implements ApartmentDao {
     }
 
     @Override
-    public void deleteByApartmentType(BedsitterApartment bedsitterApartment, OneBedroomApartment oneBedroomApartment) {
-        String removeByTypeBedsitter="DELETE FROM apartments WHERE type=:type";
-        String removeByTypeOneBedroom="DELETE FROM apartments WHERE type=:type";
+    public void deleteByOneBedroomId(int id) {
+        String removeById="DELETE FROM apartments WHERE id=:id";
         try(Connection conn=sql2o.open()) {
-            conn.createQuery(removeByTypeBedsitter)
-                    .addParameter("type",bedsitterApartment.getType())
-                    .executeUpdate();
-
-            conn.createQuery(removeByTypeOneBedroom)
-                    .addParameter("type",oneBedroomApartment.getType())
+            conn.createQuery(removeById)
+                    .addParameter("id",id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
             System.out.println(ex);
         }
     }
+
+    @Override
+    public void deleteBedsitter(String type) {
+        String removeByType="DELETE FROM apartments WHERE type=:type";
+        try(Connection conn=sql2o.open()) {
+            conn.createQuery(removeByType)
+                    .addParameter("type",type)
+                    .executeUpdate();
+        }catch (Sql2oException ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void deleteOneBedroom(String type) {
+        String removeByType="DELETE FROM apartments WHERE type=:type";
+        try(Connection conn=sql2o.open()) {
+            conn.createQuery(removeByType)
+                    .addParameter("type",type)
+                    .executeUpdate();
+        }catch (Sql2oException ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
 
     @Override
     public void clearAll() {
