@@ -6,15 +6,16 @@ import models.Tenants;
 import java.util.List;
 
 public interface TenantsDao {
+
     //    CREATE
+
     void saveTenant(Tenants tenants);
 
     //    READ
     List<Tenants> getAll();
     Tenants findById(int id);
 
-
-    //    UPDATE
+//    UPDATE
     void update(int id,String name, String phone, int roomNumber, int floor, int apartmentId);
 
     //    DESTROY
@@ -22,3 +23,4 @@ public interface TenantsDao {
     void deleteById(int id);
 
 }
+

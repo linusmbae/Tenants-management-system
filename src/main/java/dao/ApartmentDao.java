@@ -24,9 +24,8 @@ public interface ApartmentDao {
     void updateOneBedroom(String name, String  location,String type, int numberOfRooms, int numberOfFloors,int id);
 
     //    DESTROY
+
     void deleteByBedsitterId(int id);
-    void deleteByOneBedroomId(int id);
-    void deleteBedsitter(String type);
     void deleteOneBedroom(String type);
     void clearAll();
 }

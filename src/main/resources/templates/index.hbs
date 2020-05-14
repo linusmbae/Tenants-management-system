@@ -1,0 +1,69 @@
+{{#partial "content"}}
+    <div class="container-fluid">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="main-page">
+            <img src="/images/logo.png" height="450px" width="450px">
+            <br><br>
+            <p>For property owners who need to keep track of their tenants,<br> as well as their property</p>
+        </div>
+    </div>
+    <div id="info">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column">
+            <div class="col-md-6">
+                <h3>Have total control over your property</h3>
+                <br>
+                <img src="/images/house.png" style="width:200px">
+                <br><br>
+            </div>
+            <div class="col-md-6">
+                <h3>Manage all issues pertaining to your property</h3>
+                <br>
+                <img src="/images/to-do.jpg" style="width:200px">
+                <br><br>
+            </div>
+        </div>
+    </div>
+    <div id="function">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column">
+            <div class="col-md-6">
+                <p>Start remotely managing your property today</p>
+                <br>
+                <h1><u>SIGN UP</u></h1>
+                <form>
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" placeholder="Name..." required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="email" name="email" id="name" placeholder="Eg: person@company.com" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="username" name="username" id="username" placeholder="Username..." required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn-success">Sign Up</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <p>Already have an account?</p>
+                <br>
+                <h1><u>SIGN IN</u></h1>
+                <form>
+                    <div class="form-group">
+                        <input type="username" name="username" id="username" placeholder="Username..." required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-info">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> layout.hbs}}

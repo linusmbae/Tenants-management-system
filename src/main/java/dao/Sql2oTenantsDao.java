@@ -28,6 +28,7 @@ public class Sql2oTenantsDao implements TenantsDao{
         }
     }
 
+
     @Override
     public List<Tenants> getAll() {
         try(Connection conn = sql2o.open()) {
@@ -63,6 +64,7 @@ public class Sql2oTenantsDao implements TenantsDao{
             System.out.println(ex);
         }
     }
+
     @Override
     public void clearAll() {
         String removeAll="DELETE FROM tenants";
@@ -88,3 +90,4 @@ public class Sql2oTenantsDao implements TenantsDao{
     }
 
 }
+
