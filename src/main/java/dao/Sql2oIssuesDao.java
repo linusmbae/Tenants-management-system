@@ -14,9 +14,9 @@ public class Sql2oIssuesDao implements IssuesDao {
 
     @Override
     public void saveIssue(Issues issues) {
-
         String save = "INSERT INTO issues (type, content, apartmentid, roomid) VALUES (:type, :content, :apartmentId, :roomId)";
         try (Connection conn = sql2o.open()) {
+           int id=(int) conn.createQuery(save,true)
                     .bind(issues)
                     .executeUpdate()
                     .getKey();
@@ -91,6 +91,4 @@ public class Sql2oIssuesDao implements IssuesDao {
             System.out.println(ex);
         }
     }
-}
-
 }

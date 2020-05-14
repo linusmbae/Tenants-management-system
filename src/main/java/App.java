@@ -32,7 +32,7 @@ public class App {
         Sql2oIssuesDao issuesDao;
         Sql2oTenantsDao tenantsDao;
         String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager";
-        Sql2o sql2o = new Sql2o(connectionString, "postgres", "1234");
+        Sql2o sql2o = new Sql2o(connectionString, "linus", "mariano@9496");
         userDao=new Sql2oUserDao(sql2o);
         apartmentDao=new Sql2oApartmentDao(sql2o);
         issuesDao=new Sql2oIssuesDao(sql2o);
@@ -394,6 +394,4 @@ public class App {
             return null;
         },new HandlebarsTemplateEngine());
     }
-}
-
 }
