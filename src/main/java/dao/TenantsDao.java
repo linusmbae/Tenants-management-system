@@ -7,18 +7,17 @@ import java.util.List;
 
 public interface TenantsDao {
 //    CREATE
-    void saveTenant(Tenants tenants,Apartment apartment);
+    void saveTenant(Tenants tenants);
 
 //    READ
     List<Tenants> getAll();
     Tenants findById(int id);
-    List<Tenants> geAllByApartmentId(Apartment apartment);
+
 
 //    UPDATE
-    void update(Tenants tenants,Apartment apartment);
+    void update(int id,String name, String phone, int roomNumber, int floor, int apartmentId);
 
 //    DESTROY
     void clearAll();
-    void removeById(Tenants tenants);
-    void removeByApartmentId(Apartment apartment);
+    void deleteById(int id);
 }

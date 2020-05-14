@@ -14,14 +14,11 @@ public class Sql2oIssuesDao implements IssuesDao{
     }
 
     @Override
-    public void saveIssue(Issues issues, Apartment apartment) {
+    public void saveIssue(Issues issues) {
         String save="INSERT INTO issues (type, content, apartmentid, roomid) VALUES (:type, :content, :apartmentId, :roomId)";
         try(Connection conn=sql2o.open()) {
             int id=(int)conn.createQuery(save)
-                    .addParameter("type",issues.getType())
-                    .addParameter("content",issues.getContent())
-                    .addParameter("apartmentId",apartment.getId())
-                    .addParameter("roomId",issues.getRoomId())
+                    .bind(issues)
                     .executeUpdate()
                     .getKey();
             issues.setId(id);
@@ -40,32 +37,33 @@ public class Sql2oIssuesDao implements IssuesDao{
     }
 
     @Override
-    public Issues getById(int id) {
-        try(Connection conn=sql2o.open()) {
-            return conn.createQuery("SELECT * FROM issues WHERE id=:id")
-                    .addParameter("id",id)
+    public Issues  findById(int id) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("SELECT * FROM issues WHERE id = :id")
+                    .addParameter("id", id)
                     .executeAndFetchFirst(Issues.class);
         }
     }
 
     @Override
-    public List<Issues> getByApartmentId(Apartment apartment) {
+    public List<Issues> getByApartment(int apartmentId) {
         try(Connection conn=sql2o.open()) {
             return conn.createQuery("SELECT * FROM issues WHERE apartmentid=:apartmentId")
-                    .addParameter("apartmentId",apartment.getId())
+                    .addParameter("apartmentId",apartmentId)
                     .executeAndFetch(Issues.class);
         }
     }
 
     @Override
-    public void update(Issues issues, Apartment apartment) {
+    public void update(int id,String  type,String content,int apartmentid,int roomid) {
         String update="UPDATE issues SET (type, content, apartmentid, roomid) = (:type, :content, :apartmentId, :roomId) WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(update)
-                    .addParameter("type",issues.getType())
-                    .addParameter("content",issues.getContent())
-                    .addParameter("apartmentId",apartment.getId())
-                    .addParameter("roomId",issues.getRoomId())
+                    .addParameter("type",type)
+                    .addParameter("content",content)
+                    .addParameter("apartmentId",apartmentid)
+                    .addParameter("roomId",roomid)
+                    .addParameter("id",id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
@@ -86,11 +84,11 @@ public class Sql2oIssuesDao implements IssuesDao{
     }
 
     @Override
-    public void removeById(Issues issues) {
+    public void deleteById(int id) {
         String removeById="DELETE FROM issues WHERE id=:id";
         try(Connection conn=sql2o.open()) {
             conn.createQuery(removeById)
-                    .addParameter("id",issues.getId())
+                    .addParameter("id", id)
                     .executeUpdate();
         }catch (Sql2oException ex)
         {
@@ -98,16 +96,6 @@ public class Sql2oIssuesDao implements IssuesDao{
         }
     }
 
-    @Override
-    public void removeByApartmentId(Apartment apartment) {
-        String removeByApartmentId="DELETE FROM issues WHERE apartmentid=:apartmentId";
-        try(Connection conn=sql2o.open()) {
-            conn.createQuery(removeByApartmentId)
-                    .addParameter("apartmentId",apartment.getId())
-                    .executeUpdate();
-        }catch (Sql2oException ex)
-        {
-            System.out.println(ex);
-        }
-    }
+
+
 }
