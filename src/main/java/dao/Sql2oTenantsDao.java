@@ -1,6 +1,6 @@
 package dao;
 
-import models.Apartment;
+
 import models.Tenants;
 import org.sql2o.*;
 

@@ -2,23 +2,24 @@ package dao;
 
 import models.Apartment;
 import models.Issues;
+import models.User;
 
 import java.util.List;
 
 public interface IssuesDao {
-//    CREATE
-    void saveIssue(Issues issues, Apartment apartment);
 
-//    READ
+    //    CREATE
+    void saveIssue(Issues issues);
+
+    //    READ
     List<Issues> getAll();
-    Issues getById(int id);
-    List<Issues> getByApartmentId(Apartment apartment);
+    Issues findById(int id);
+    List<Issues> getByApartment(int apartmentId);
 
-//    UPDATE
-    void update(Issues issues,Apartment apartment);
+    //    UPDATE
+    void update(int id, String type, String content, int apartmentid, int roomid);
 
-//    DESTROY
+    //    DESTROY
     void clearAll();
-    void removeById(Issues issues);
-    void removeByApartmentId(Apartment apartment);
+    void deleteById(int id);
 }
