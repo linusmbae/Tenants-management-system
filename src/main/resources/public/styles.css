@@ -1,0 +1,76 @@
+#main-page {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  padding-bottom: 50px;
+}
+#info {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+  color: black;
+  font-size: 30px;
+}
+#main-page p{
+  font-size: 25px;
+}
+#nav {
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+#function{
+  background-color: rgba(0,0, 0, 0.9);
+  padding: 40px;
+}
+#function form{
+  color: black;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+}
+body {
+  font-family: times;
+  font-size: 20px;
+  color: white;
+  background-image: url("../images/new-back.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+#main-page h1 {
+  font-size: 80px;
+}
+#main-page h2{
+  font-size: 40px;
+}
+#info img{
+  height: 200px;
+  border-radius: 50%;
+  radius: 30px;
+}
+#signup {
+  background: rgba(0, 0, 0, 0.5);
+  background-size: 50% auto;
+  padding-top: 20px;
+
+}
+#signup h1 {
+  font-size: 60px;
+  color: white;
+}
+#signup form {
+  color: black;
+  padding: 40px;
+}
+form p{
+  color:white;
+}
+#signup body {
+  padding: 40px;
+}
+label {
+  color: white;
+}
+#display{
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 40px;
+  color: black;
+}
