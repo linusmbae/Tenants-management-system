@@ -15,16 +15,17 @@ import java.util.Map;
 import static spark.Spark.*;
 
 public class App {
-    public  static void main(String[] args) {
+    static int getHerokuAsignedPort() {
         ProcessBuilder process = new ProcessBuilder();
-        Integer port;
-
         if (process.environment().get("PORT") != null) {
-            port = Integer.parseInt(process.environment().get("PORT"));
+            return Integer.parseInt(process.environment().get("PORT"));
         } else {
-            port = 4567;
+            return 4567;
         }
-        port(port);
+    }
+    public  static void main(String[] args) {
+
+        port(getHerokuAsignedPort());
         staticFileLocation("/public");
         Connection conn;
         Sql2oUserDao userDao;
@@ -32,7 +33,7 @@ public class App {
         Sql2oIssuesDao issuesDao;
         Sql2oTenantsDao tenantsDao;
         String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager";
-        Sql2o sql2o = new Sql2o(connectionString, "linus", "mariano@9496");
+        Sql2o sql2o = new Sql2o(connectionString, "alphania", "2020");
         userDao=new Sql2oUserDao(sql2o);
         apartmentDao=new Sql2oApartmentDao(sql2o);
         issuesDao=new Sql2oIssuesDao(sql2o);
@@ -43,8 +44,25 @@ public class App {
             Map<String, Object> model = new HashMap<String, Object>();
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
+        get("/home", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            return new ModelAndView(model, "home.hbs");
+        }, new HandlebarsTemplateEngine());
 
         // Users
+        get("/Profile", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int id = 1;
+            User found= userDao.findById(id);
+            model.put("found",found);
+            return new ModelAndView(model, "profile.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/user/sign-up", (request, response) ->{
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "sign-up.hbs");
+        }, new HandlebarsTemplateEngine() );
+
         post("/users/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
@@ -52,8 +70,28 @@ public class App {
             String username = request.queryParams("username");
             String password = request.queryParams("password");
             User user = new User(name,email,username,password);
-            userDao.save(user);
-            return new ModelAndView(model, "");
+            if (user != null){
+                userDao.save(user);
+                User foundUser = userDao.findById(user.getId());
+                System.out.println("Your user id is: " + foundUser.getId());
+            }else {
+                System.out.println("Failed");
+            }
+            return new ModelAndView(model, "successful.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/user/login", (request, response) ->{
+            Map<String, Object> model = new HashMap<>();
+            String userName = request.queryParams("username");
+            String password = request.queryParams("password");
+            int id = Integer.parseInt(request.params("id"));
+            User user = userDao.findById(id);
+            if (userName.equals(user.getUserName()) && password.equals(user.getPassword()) && id==user.getId()) {
+                return new ModelAndView(model, "home.hbs");
+            } else {
+                System.out.println("Your username or password is incorrect!");
+                return new ModelAndView(model, "index.hbs");
+            }
         }, new HandlebarsTemplateEngine());
 
         get("/users", (request, response) -> {
@@ -73,7 +111,12 @@ public class App {
         },new HandlebarsTemplateEngine());
 
         //Tenants
-        post("/Tenants", (request, response) -> {
+        get("/Tenants/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            return new ModelAndView(model, "tenant-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/Tenants/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String phone = request.queryParams("phone");
@@ -82,14 +125,15 @@ public class App {
             int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
             Tenants tenants = new Tenants(name,phone,roomNumber,floor,apartmentId);
             tenantsDao.saveTenant(tenants);
-            return new ModelAndView(model, "");
+            response.redirect("/Tenants");
+            return null;
         }, new HandlebarsTemplateEngine());
 
         get("/Tenants", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Tenants> tenants = tenantsDao.getAll();
             model.put("tenants",tenants);
-            return new ModelAndView(model, "");
+            return new ModelAndView(model, "tenants.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/tenants/:id",(request, response) ->
@@ -101,27 +145,51 @@ public class App {
             return new ModelAndView(model,"");
         },new HandlebarsTemplateEngine());
 
+        //apartments
+        get("/Apartments/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            return new ModelAndView(model, "apartment-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //one bed room apartment
-        post("/OneBedroomApartment/new", (request, response) -> {
+        post("/Apartments/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String location = request.queryParams("location");
+            String type = request.queryParams("type");
             int numberOfRooms = Integer.parseInt(request.queryParams("numberOfRooms"));
             int numberOfFloors = Integer.parseInt(request.queryParams("numberOfFloors"));
-            OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name,location,numberOfRooms,numberOfFloors);
-            apartmentDao.saveOneBedroomApartment(oneBedroomApartment);
-            return new ModelAndView(model, "");
+            if (type.equals("One Bedroom")) {
+                OneBedroomApartment oneBedroomApartment = new OneBedroomApartment(name, location, numberOfRooms, numberOfFloors);
+                apartmentDao.saveOneBedroomApartment(oneBedroomApartment);
+            } else {
+                BedsitterApartment bedsitterApartment = new BedsitterApartment(name, location, numberOfRooms, numberOfFloors);
+                apartmentDao.saveBedSitterApartment(bedsitterApartment);
+            }
+            return new ModelAndView(model, "home.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/OneBedroomApartment", (request, response) -> {
+        get("/Apartments", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String type = request.queryParams("type");
-            List<OneBedroomApartment> oneBedroomApartment = apartmentDao.getAllWithTypeOneBedroom(type);
-            model.put("oneBedroomApartment",oneBedroomApartment);
-            return new ModelAndView(model, "");
+            String type = "One Bedroom";
+            if (type.equals("One Bedroom")) {
+                List<OneBedroomApartment> apartments = apartmentDao.getAllWithTypeOneBedroom(type);
+                model.put("apartments", apartments);
+            }
+            return new ModelAndView(model, "apartments.hbs");
         }, new HandlebarsTemplateEngine());
 
+        get("/bedsitters",(request, response) ->
+        {
+            Map<String,Object>model= new HashMap<>();
+            String type1="Bedsitter";
+            if(type1.equals("Bedsitter")){
+            List<BedsitterApartment>bedsitterApartments=apartmentDao.getAllWithTypeBedsitter(type1);
+            model.put("bedsitterApartments",bedsitterApartments);
+        }
+            return new ModelAndView(model, "bedsitter.hbs");
+        },new HandlebarsTemplateEngine());
         get("/OneBedroomApartment/:id",(request, response) ->
         {
             Map<String,Object>model=new HashMap<String, Object>();
@@ -141,23 +209,52 @@ public class App {
         },new HandlebarsTemplateEngine());
 
         //issues
+        get("/Issues/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            String type ="Bedsitter";
+            List<BedsitterApartment>bedsitterApartments=apartmentDao.getAllWithTypeBedsitter(type);
+            model.put("bedsitterApartments",bedsitterApartments);
+            return new ModelAndView(model, "issue-form.hbs");
+        }, new HandlebarsTemplateEngine());
 
-        post("/Issues", (request, response) -> {
+        post("/Issues/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String type = request.queryParams("type");
+            String type = request.queryParams("issue");
             String content = request.queryParams("content");
             int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
             int roomId = Integer.parseInt(request.queryParams("roomId"));
             Issues issues = new Issues(type,content,apartmentId,roomId);
             issuesDao.saveIssue(issues);
-            return new ModelAndView(model, "");
+            response.redirect("/Issues");
+            return  null;
         }, new HandlebarsTemplateEngine());
+
+        get("/Issues/new/", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            String type ="One Bedroom";
+            List<OneBedroomApartment>oneBedroomApartments=apartmentDao.getAllWithTypeOneBedroom(type);
+            model.put("oneBedroomApartments",oneBedroomApartments);
+            return new ModelAndView(model, "oneBedroomIssues.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/Issues/new/", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String type = request.queryParams("issue");
+            String content = request.queryParams("content");
+            int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
+            int roomId = Integer.parseInt(request.queryParams("roomId"));
+            Issues issues = new Issues(type,content,apartmentId,roomId);
+            issuesDao.saveIssue(issues);
+            response.redirect("/Issues");
+            return  null;
+        }, new HandlebarsTemplateEngine());
+
 
         get("/Issues", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Issues> issues = issuesDao.getAll();
             model.put("issues",issues);
-            return new ModelAndView(model, "");
+            return new ModelAndView(model, "issue.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/Issues:id",(request, response) ->
@@ -247,32 +344,17 @@ public class App {
 
 
         // User update
-        post("/users", (request, response) -> {
+        post("/Profile/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String email = request.queryParams("email");
             String username = request.queryParams("username");
             String password = request.queryParams("password");
-            User user = new User(name,email,username,password);
-            userDao.save(user);
-            return new ModelAndView(model, "");
+            int id = 1;
+            userDao.update(id, name,email,username,password);
+            response.redirect("/Profile");
+            return null;
         }, new HandlebarsTemplateEngine());
-
-        get("/users/:id/update", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<User> user = userDao.getAll();
-            model.put("user",user);
-            return new ModelAndView(model, "");
-        }, new HandlebarsTemplateEngine());
-
-        get("/users/:id/update",(request, response) ->
-        {
-            Map<String,Object>model=new HashMap<String, Object>();
-            int id = Integer.parseInt(request.params("id"));
-            User found=userDao.findById(id);
-            model.put("found",found);
-            return new ModelAndView(model,"");
-        },new HandlebarsTemplateEngine());
 
         //Tenants
         post("/Tenants/:id/update", (request, response) -> {
@@ -307,29 +389,30 @@ public class App {
         // issues update
         post("/Issues/:id/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String type = request.queryParams("type");
+            String type = request.queryParams("issue");
             String content = request.queryParams("content");
             int apartmentId = Integer.parseInt(request.queryParams("apartmentId"));
             int roomId = Integer.parseInt(request.queryParams("roomId"));
-            Issues issues = new Issues(type,content,apartmentId,roomId);
-            issuesDao.saveIssue(issues);
-            return new ModelAndView(model, "");
+            int id = Integer.parseInt(request.queryParams("id"));
+            issuesDao.update(id,type,content,apartmentId,roomId);
+            response.redirect("/Issues");
+            return null;
         }, new HandlebarsTemplateEngine());
 
-        get("/Issues/:id/update", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Issues> issues = issuesDao.getAll();
-            model.put("issues",issues);
-            return new ModelAndView(model, "");
-        }, new HandlebarsTemplateEngine());
+//        get("/Issues/:id/update", (request, response) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            List<Issues> issues = issuesDao.getAll();
+//            model.put("issues",issues);
+//            return new ModelAndView(model, "");
+//        }, new HandlebarsTemplateEngine());
 
-        get("/Issues/:id/update",(request, response) ->
+        get("/Issues/:id/updateMe",(request, response) ->
         {
             Map<String,Object>model=new HashMap<String, Object>();
             int id = Integer.parseInt(request.params("id"));
             Issues found=issuesDao.findById(id);
             model.put("found",found);
-            return new ModelAndView(model,"");
+            return new ModelAndView(model,"editIssue.hbs");
         },new HandlebarsTemplateEngine());
 
         post("/user/:id/delete",(request, response) ->
@@ -349,12 +432,12 @@ public class App {
             return null;
         },new HandlebarsTemplateEngine());
 
-        post("/issues/:id/delete",(request, response) ->
+        post("/issues/:id/deleteMe",(request, response) ->
         {
             Map<String,Object>model=new HashMap<String, Object>();
             int id =Integer.parseInt(request.params("id"));
             issuesDao.deleteById(id);
-            response.redirect("/issues");
+            response.redirect("/Issues");
             return null;
         },new HandlebarsTemplateEngine());
 

@@ -1,0 +1,40 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+    <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="display">
+        <h1>ISSUES</h1>
+    <table class="table">
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Apartment ID</th>
+            <th scope="col">Room ID</th>
+            <th scope="col">Issue Details</th>
+            <th scope="col">Action</th>
+        </tr>
+   {{#if issues}}
+       {{#each issues}}
+           <tr>
+               <td>{{type}}</td>
+               <td>{{apartmentId}}</td>
+               <td>{{roomId}}</td>
+               <td>{{content}}</td>
+               <td>
+                   <a href="/Issues/{{id}}/updateMe" class="btn btn-warning">Update Issue</a>
+           </tr>
+       {{/each}}
+   {{/if}}
+        </table>
+        </div>
+        </div>
+
+{{/partial}}
+{{> layout.hbs}}

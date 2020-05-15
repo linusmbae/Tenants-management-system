@@ -25,34 +25,10 @@
     <div id="function">
         <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column">
             <div class="col-md-6">
-                <p>Start remotely managing your property today</p>
-                <br>
-                <h1><u>SIGN UP</u></h1>
-                <form>
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" placeholder="Name..." required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="email" name="email" id="name" placeholder="Eg: person@company.com" required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="username" name="username" id="username" placeholder="Username..." required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="password" name="password" id="password" placeholder="Password" required>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn-success">Sign Up</button>
-                </form>
-            </div>
-            <div class="col-md-6">
                 <p>Already have an account?</p>
                 <br>
                 <h1><u>SIGN IN</u></h1>
-                <form>
+                <form action="/user/login" method="post">
                     <div class="form-group">
                         <input type="username" name="username" id="username" placeholder="Username..." required>
                     </div>
@@ -60,8 +36,18 @@
                     <div class="form-group">
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
+                    <div class="form-group">
+                        <input type="number" name="id" placeholder="Enter user Id">
+                    </div>
                     <button type="submit" class="btn-info">Sign In</button>
                 </form>
+            </div>
+            <div class="col-md-6">
+                <p>Start remotely managing your property today</p>
+                <br>
+                <p>Do not have an account? Sign up <a href="/user/sign-up">here</a></p>
+                <br>
+                <a href="/home" class="btn btn-warning">Home</a>
             </div>
         </div>
     </div>

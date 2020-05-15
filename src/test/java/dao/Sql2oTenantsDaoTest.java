@@ -16,7 +16,7 @@ public class Sql2oTenantsDaoTest {
     @BeforeClass
     public static void setUp() throws Exception {
         String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager_test";
-        Sql2o sql2o = new Sql2o(connectionString, "linus", "mariano@9496");
+        Sql2o sql2o = new Sql2o(connectionString, "alphania", "2020");
         System.out.println("Connection Initialized");
         tenantsDao=new Sql2oTenantsDao(sql2o);
         apartmentDao=new Sql2oApartmentDao(sql2o);

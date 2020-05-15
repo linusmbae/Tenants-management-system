@@ -1,0 +1,41 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="display">
+            <h1>PROFILE</h1>
+            {{#if found}}
+                <form action="/Profile/update" method="post">
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" value="{{found.name}}" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" value="{{found.email}}" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" value="{{found.userName}}" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" name="password" id="password" value="{{found.password}}" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn-info">Update Info</button>
+                </form>
+            {{/if}}
+
+        </div>
+    </div>
+
+{{/partial}}
+{{> layout.hbs}}
