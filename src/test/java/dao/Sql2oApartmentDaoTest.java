@@ -1,5 +1,6 @@
 package dao;
 
+import models.Apartment;
 import models.BedsitterApartment;
 import models.OneBedroomApartment;
 import models.Tenants;
@@ -16,8 +17,10 @@ public class Sql2oApartmentDaoTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager_test";
-        Sql2o sql2o = new Sql2o(connectionString, "linus", "mariano@9496");
+//        String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager_test";
+//        Sql2o sql2o = new Sql2o(connectionString, "alphania", "2020");
+        String connectionString = "jdbc:postgresql://ec2-34-230-149-169.compute-1.amazonaws.com:5432/dh8km5l2do2ib";
+        Sql2o sql2o = new Sql2o(connectionString, "ytpzfcwlsbzvvr", "5fc1bc997dfe1adb1f8b7da42af896045655c554890714a912d8854850f361bd");
         System.out.println("Connection Initialized");
         apartmentDao=new Sql2oApartmentDao(sql2o);
         tenantsDao=new Sql2oTenantsDao(sql2o);
@@ -133,7 +136,6 @@ public class Sql2oApartmentDaoTest {
         apartmentDao.deleteBedsitter(bedsitterApartment.getType());
         assertTrue(daoSize > 0 && daoSize > apartmentDao.getAllWithTypeBedsitter(bedsitterApartment.getType()).size());
     }
-
 
     public BedsitterApartment setupNewBedSitterApartment(){
         return new BedsitterApartment ("Mogusu","Kibera",4,7) ;

@@ -32,7 +32,7 @@ public class Sql2oTenantsDao implements TenantsDao{
     @Override
     public List<Tenants> getAll() {
         try(Connection conn = sql2o.open()) {
-            return conn.createQuery("SELECT * FROM tenants ORDER BY name ASC;")
+            return conn.createQuery("SELECT * FROM tenants")
                     .executeAndFetch(Tenants.class);
         }
     }

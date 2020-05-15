@@ -1,0 +1,45 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="signup">
+            <h1>TENANT ISSUE</h1>
+
+            <a href="/Issues/new/" class="btn btn-success">One bedrooms</a>
+            <a href="/Issues/new" class="btn btn-info">Bedsitters</a>
+
+            <form action="/Issues/new/" method="post">
+                <div class="form-group">
+                    <input type="text" name="issue" id="type" placeholder="Issue..." required>
+                </div>
+                <div class="form-group">
+                    <label for="apartmentID">Apartment ID</label>
+                    <select class="apartmentId" name="apartmentId" id="apartmentId" required>
+                        {{#each oneBedroomApartments}}
+
+                            <option>{{id}}</option>
+                        {{/each}}
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="roomId" id="roomId" placeholder="roomID" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="content" id="content" rows="8" cols="80" placeholder="Describe room issue..." required></textarea>
+                </div>
+                <button type="submit">Add Issue</button>
+            </form>
+        </div>
+    </div>
+
+{{/partial}}
+{{> layout.hbs}}

@@ -1,5 +1,6 @@
 package dao;
 
+import models.Apartment;
 import models.BedsitterApartment;
 import models.OneBedroomApartment;
 import models.Tenants;

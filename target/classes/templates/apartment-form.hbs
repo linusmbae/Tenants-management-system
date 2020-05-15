@@ -1,0 +1,47 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="signup">
+            <h1>APARTMENTS</h1>
+            <form action="/Apartments/new" method="post">
+                <div class="form-group">
+                    <input type="text" name="name" id="name" placeholder="Name..." required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="text" name="location" id="location" placeholder="Location" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="number" name="numberOfRooms" id="numberOfRooms" placeholder="Number of rooms in each apartment..." required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="number" name="numberOfFloors" id="numberOfFloors" placeholder="Number of floors in each apartment..." required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="type">Select apartment type</label>
+                    <select class="type" name="type" id="type">
+                        <option>  </option>
+                        <option>One Bedroom</option>
+                        <option>Bedsitter</option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit">Save apartment</button>
+            </form>
+        </div>
+    </div>
+
+{{/partial}}
+{{> layout.hbs}}
