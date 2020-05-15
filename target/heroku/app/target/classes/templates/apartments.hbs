@@ -1,0 +1,34 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="display">
+            <h1>APARTMENTS LIST</h1>
+            <a href="/Apartments" class="btn btn-success">Onebedrooms</a>
+            <a href="/bedsitters" class="btn btn-info">Bedsitters</a>
+            {{#if apartments}}
+                {{#each apartments}}
+                            <p>Apartment Name: {{name}}</p><br>
+                            <p>Location of apartment: {{location}}</p><br>
+                            <p>Number of rooms: {{numberOfRooms}}</p><br>
+                            <p>Number of floors: {{numberOfFloors}}</p><br>
+                            <p>Type of apartments: {{type}}</p><br>
+                            <button type="submit" class="btn-info">Update apartments</button>
+                {{/each}}
+            {{else}}
+                None
+            {{/if}}
+
+        </div>
+    </div>
+
+{{/partial}}
+{{> layout.hbs}}

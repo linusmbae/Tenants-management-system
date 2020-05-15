@@ -32,8 +32,10 @@ public class App {
         Sql2oApartmentDao apartmentDao;
         Sql2oIssuesDao issuesDao;
         Sql2oTenantsDao tenantsDao;
-        String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager";
-        Sql2o sql2o = new Sql2o(connectionString, "alphania", "2020");
+//        String connectionString = "jdbc:postgresql://localhost:5432/tenants_manager";
+//        Sql2o sql2o = new Sql2o(connectionString, "alphania", "2020");
+        String connectionString = "jdbc:postgresql://ec2-34-230-149-169.compute-1.amazonaws.com:5432/d87uolhc64tb4l";
+        Sql2o sql2o = new Sql2o(connectionString,"bkgumqoczgjnwb", "1ce511fafa472a9c733c86627dd69c8fe4c7db52693b06cd5d965fcfba2fdc2e");
         userDao=new Sql2oUserDao(sql2o);
         apartmentDao=new Sql2oApartmentDao(sql2o);
         issuesDao=new Sql2oIssuesDao(sql2o);

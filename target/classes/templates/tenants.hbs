@@ -1,0 +1,39 @@
+{{#partial "content"}}
+    <ul class="nav nav-tabs" id="nav">
+        <li role="presentation"><a href="/home"><img src="images/logo2.png" height="40px" width="60px"></a></li>
+        <li role="presentation"><a href="/Issues">Issues</a></li>
+        <li role="presentation"><a href="/Issues/new">Add Issue</a></li>
+        <li role="presentation"><a href="/Tenants">Tenants</a></li>
+        <li role="presentation"><a href="/Tenants/new">Add Tenant</a></li>
+        <li role="presentation"><a href="/Apartments">Apartments</a></li>
+        <li role="presentation"><a href="/Apartments/new">Add Apartment</a></li>
+        <li role="presentation"><a href="/Profile">Profile</a></li>
+    </ul>
+    <div class="container">
+        <div class="row min-vh-100 text-center justify-content-center align-items-center flex-column" id="display">
+            <h1>TENANTS</h1>
+            {{#if tenants}}
+                {{#each tenants}}
+
+
+
+                    <p>
+                                {{name}}
+                                {{phone}}
+                                {{roomNumber}}
+                                {{floor}}
+                                {{apartmentId}}
+                                <button type="button" class="btn-warning">Remove</button>
+                                <button type="button" class="btn-info">Update</button>
+
+                    </p>
+
+                {{/each}}
+            {{else}}
+                none
+            {{/if}}
+
+        </div>
+    </div>
+{{/partial}}
+{{> layout.hbs}}
